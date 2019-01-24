@@ -1,5 +1,9 @@
 #!/bin/bash
 
+#
+# when run standalone without Vagrant, make sure you have vagrant user with sudo:
+# useradd -m vagrant && adduser vagrant sudo
+#
 
 PATH=/usr/games/:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 sudo apt-get -y install --no-install-recommends build-essential ruby ruby-dev ruby-bundler git-core cowsay mysql-server default-libmysqlclient-dev libsqlite3-dev
