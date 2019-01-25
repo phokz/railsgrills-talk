@@ -1,0 +1,16 @@
+{
+  "name": "typedra",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "@types/node": "^10.12.18",
+    "@types/qs": "^6.5.1",
+    "@types/tough-cookie": "^2.3.5",
+    "axios": "^0.18.0",
+    "qs": "^6.6.0",
+    "tough-cookie": "^3.0.0",
+    "ts-node": "^7.0.1",
+    "typescript": "^3.2.4"
+  }
+}
