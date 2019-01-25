@@ -1,0 +1,16 @@
+Description=Puma2 HTTP Server
+After=network.target
+
+[Service]
+Type=simple
+
+
+User=root
+WorkingDirectory=/home/jlxx/sinatra_knockd
+
+ExecStart=/usr/local/bin/puma -b 'ssl://0.0.0.0:443?key=/root/.acme.sh/railsgoat.fqdn.cz/railsgoat.fqdn.cz.key&cert=/root/.acme.sh/railsgoat.fqdn.cz/fullchain.cer&verify_mode=none'
+
+Restart=always
+
+[Install]
+WantedBy=multi-user.target

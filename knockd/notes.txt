@@ -1,0 +1,18 @@
+#https://www.cyberciti.biz/faq/debian-ubuntu-linux-iptables-knockd-port-knocking-tutorial/
+
+cat <<EOF > /etc/knockd.conf
+[options]
+        UseSyslog
+
+[openGoat]
+        sequence    = 1234,2345,3456
+        seq_timeout = 5
+        command     = /sbin/iptables -I INPUT -s %IP% -p tcp --dport 3000 -j ACCEPT
+        tcpflags    = syn
+EOF
+
+echo START_KNOCKD=1 > /etc/default/knockd
+systemctl start knockd
+
+knock railsgoat.fqdn.cz 1234 2345 3456
+xdg-open http://railsgoat.fqdn.cz:3000/
