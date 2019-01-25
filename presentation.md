@@ -6,6 +6,14 @@ Railsgrills 3.0
 
 ===
 
+# Motivation
+
+How to increase general awareness about information security?
+
+- Talk about it!
+
+===
+
 # Introduction
 
 In security - learn by trying it yourself.
@@ -152,4 +160,74 @@ or
 - `brakeman`  - check for common vulnerabilities
 - `danger`  - insecure files in git - keys, credentials
 
+===
+# Rubocop
+
+- not a security tool
+- however, keeping code well-styled may improve readability, auditabily and security
+
+Sample output here:
+
+```ruby
+Inspecting 121 files
+.........................................................................................................C...............
+
+Offenses:
+
+db/schema.rb:1:1: C: Style/FrozenStringLiteralComment: Missing magic comment # frozen_string_literal: true.
+# This file is auto-generated from the current state of the database. Instead
+^
+
+121 files inspected, 1 offense detected
+```
+
+===
+
+# bundler audit
+
+```ruby
+Name: rubyzip
+Version: 1.0.0
+Advisory: CVE-2017-5946
+Criticality: Unknown
+URL: https://github.com/rubyzip/rubyzip/issues/315
+Title: Directory traversal vulnerability in rubyzip
+Solution: upgrade to >= 1.2.1
+
+Vulnerabilities found!
+```
+
+===
+
+## brakeman
+
+swiss army knife of rails security
+
+Sample output:
+
+```ruby
+Confidence: High
+Category: Cross-Site Scripting
+Check: CrossSiteScripting
+Message: Unescaped cookie value
+Code: cookies[:font]
+File: app/views/layouts/application.html.erb
+Line: 12
+```
+===
+
+# danger
+
+- only for github projects, can be integrated with allmost any ci
+- can be run locally: `danger local`
+
+
+=== 
+
+# Conclusion
+
+- security is hard
+- do not write your own security
+- scan for vulns
+- implement security scans in your ci/cd pipeline (topic 4 next talk: SecOps) 
 
